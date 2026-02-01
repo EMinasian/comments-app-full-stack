@@ -1,10 +1,14 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
+import comments from '../../mocks/comments.json';
 
 @Controller('comments')
 export class CommentsController {
   // Get /comments
   @Get()
-  findAll() {
-    return [];
+  findAll(@Query('cursor') cursor: string) {
+    return {
+      items: comments,
+      endCursor: cursor, // TODO: change it to end-cursor once pagination available
+    };
   }
 }

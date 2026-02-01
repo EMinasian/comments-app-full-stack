@@ -1,11 +1,15 @@
 import CommentsSection from "@/components/CommentsSection";
+import getAllComments from "@/utils/getAllComments";
 
-export default function Home() {
+export default async function Home() {
+
+  const { items } = await getAllComments()
+
   return (
     <html>
       <body>
         <main className="">
-          <CommentsSection />
+          <CommentsSection comments={items}/>
         </main>
       </body>
     </html>
