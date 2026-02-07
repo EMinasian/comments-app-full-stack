@@ -5,7 +5,7 @@ export default async function Home() {
   const { items } = await getAllComments();
 
   return (
-    <main className="">
+    <main className="mx-[20%] my-12  p-8 rounded-2xl shadow-2xl bg-white">
       <CommentsSection comments={items} />
     </main>
   );
