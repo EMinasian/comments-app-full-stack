@@ -11,18 +11,17 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { CreateCommentDto } from './dto/create-comment.dto';
-import comments from '../../mocks/comments.json';
 import { UpdateCommentDto } from './dto/update-comment.dto';
+import { CommentsService } from './comments.service';
 
 @Controller('comments')
 export class CommentsController {
+  constructor(private commentsService: CommentsService) {}
+
   // Get /comments
   @Get()
   findAll(@Query('cursor') cursor: string) {
-    return {
-      items: comments,
-      endCursor: cursor, // TODO: change it to end-cursor once pagination available
-    };
+    return this.commentsService.findAll(cursor);
   }
 
   // Get /comments/:id
