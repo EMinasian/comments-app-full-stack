@@ -1,14 +1,69 @@
 import { Injectable } from '@nestjs/common';
+import { randomUUID } from 'crypto';
 import mockComments from '../../mocks/comments.json';
+import { CommentResponseDto } from './dto/response-comment.dto';
+import { CreateCommentDto } from './dto/create-comment.dto';
+import { UpdateCommentDto } from './dto/update-comment.dto';
 
 @Injectable()
 export class CommentsService {
   private comments = mockComments; // TODO: replace with ORM logic
 
-  findAll(cursor: string) {
+  findAll(cursor: string): { items: CommentResponseDto[]; endCursor: string } {
     return {
       items: this.comments,
       endCursor: cursor, // TODO: change it to end-cursor once pagination available
     };
+  }
+
+  findOne(id: string): CommentResponseDto | undefined {
+    return this.comments.find((comment) => comment.commentId === id);
+  }
+
+  create(createCommentDto: CreateCommentDto): CommentResponseDto {
+    const currentDate = new Date();
+    const newComment: CommentResponseDto = {
+      ...createCommentDto,
+      commentId: randomUUID(),
+      createdAt: currentDate.toISOString(),
+      updatedAt: currentDate.toISOString(),
+      subComments: [],
+    };
+    this.comments.push(newComment);
+    return newComment;
+  }
+
+  update(
+    id: string,
+    updateCommentDto: UpdateCommentDto,
+  ): CommentResponseDto | undefined {
+    const index = this.comments.findIndex(
+      (comment) => comment.commentId === id,
+    );
+
+    if (index === -1) {
+      return;
+    }
+
+    const currentDate = new Date();
+    const updatedComment = {
+      ...this.comments[index],
+      ...updateCommentDto,
+      updatedAt: currentDate.toISOString(),
+    };
+    this.comments[index] = updatedComment;
+    return updatedComment;
+  }
+
+  remove(id: string): void {
+    const index = this.comments.findIndex(
+      (comment) => comment.commentId === id,
+    );
+
+    if (index === -1) {
+      return;
+    }
+
+    this.comments.splice(index, 1);
   }
 }
