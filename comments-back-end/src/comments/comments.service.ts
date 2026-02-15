@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
-import mockComments from '../../mocks/comments.json';
+import getMockComments from '../../mocks/comments';
 import { CommentResponseDto } from './dto/response-comment.dto';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 
 @Injectable()
 export class CommentsService {
-  private comments = mockComments; // TODO: replace with ORM logic
+  private comments = getMockComments(); // TODO: replace with ORM logic
 
   findAll(cursor: string): { items: CommentResponseDto[]; endCursor: string } {
     return {
