@@ -10,11 +10,13 @@ import {
   HttpCode,
   HttpStatus,
   NotFoundException,
+  ParseUUIDPipe
 } from '@nestjs/common';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 import { CommentResponseDto } from './dto/response-comment.dto';
 import { CommentsService } from './comments.service';
+import type { UUID } from 'crypto';
 
 @Controller('comments')
 export class CommentsController {
@@ -31,7 +33,7 @@ export class CommentsController {
 
   // Get /comments/:id
   @Get(':id')
-  findOne(@Param('id') id: string): CommentResponseDto | undefined {
+  findOne(@Param('id', ParseUUIDPipe) id: UUID): CommentResponseDto | undefined {
     try {
       return this.commentsService.findOne(id);
     } catch (error) {
@@ -49,7 +51,7 @@ export class CommentsController {
   // Put /comments/:id
   @Put(':id')
   update(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: UUID,
     @Body() updateCommentDto: UpdateCommentDto,
   ): CommentResponseDto | undefined {
     try {
@@ -63,7 +65,7 @@ export class CommentsController {
   // Delete /comments/:id
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  remove(@Param('id') id: string): void {
+  remove(@Param('id', ParseUUIDPipe) id: UUID): void {
     try {
       this.commentsService.remove(id);
     } catch (error) {
