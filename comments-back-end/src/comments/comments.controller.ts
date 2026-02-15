@@ -9,6 +9,7 @@ import {
   Delete,
   HttpCode,
   HttpStatus,
+  NotFoundException,
 } from '@nestjs/common';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
@@ -31,7 +32,12 @@ export class CommentsController {
   // Get /comments/:id
   @Get(':id')
   findOne(@Param('id') id: string): CommentResponseDto | undefined {
-    return this.commentsService.findOne(id);
+    try {
+      return this.commentsService.findOne(id);
+    } catch (error) {
+      // When database is integrated, add the typeof error check
+      throw new NotFoundException((error as Error)?.message);
+    }
   }
 
   // Post /comments/
@@ -46,13 +52,23 @@ export class CommentsController {
     @Param('id') id: string,
     @Body() updateCommentDto: UpdateCommentDto,
   ): CommentResponseDto | undefined {
-    return this.commentsService.update(id, updateCommentDto);
+    try {
+      return this.commentsService.update(id, updateCommentDto);
+    } catch (error) {
+      // When database is integrated, add the typeof error check
+      throw new NotFoundException((error as Error)?.message);
+    }
   }
 
   // Delete /comments/:id
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   remove(@Param('id') id: string): void {
-    this.commentsService.remove(id);
+    try {
+      this.commentsService.remove(id);
+    } catch (error) {
+      // When database is integrated, add the typeof error check
+      throw new NotFoundException((error as Error)?.message);
+    }
   }
 }

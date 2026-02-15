@@ -17,7 +17,12 @@ export class CommentsService {
   }
 
   findOne(id: string): CommentResponseDto | undefined {
-    return this.comments.find((comment) => comment.commentId === id);
+    const comment = this.comments.find((comment) => comment.commentId === id);
+    if (!comment) {
+      throw new Error(`Comment with id ${id} does not exist.`);
+    }
+
+    return comment;
   }
 
   create(createCommentDto: CreateCommentDto): CommentResponseDto {
@@ -42,7 +47,7 @@ export class CommentsService {
     );
 
     if (index === -1) {
-      return;
+      throw new Error(`Comment with id ${id} does not exist.`);
     }
 
     const currentDate = new Date();
@@ -61,7 +66,7 @@ export class CommentsService {
     );
 
     if (index === -1) {
-      return;
+      throw new Error(`Comment with id ${id} does not exist.`);
     }
 
     this.comments.splice(index, 1);
