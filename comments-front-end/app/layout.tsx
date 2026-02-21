@@ -7,7 +7,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-pink-100 w-full">{children}</body>
+      <body className="bg-pink-100 w-full flex flex-col items-center">{children}</body>
     </html>
   );
 }

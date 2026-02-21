@@ -1,7 +1,7 @@
 import CommentsSection from "@/components/CommentsSection";
 import getAllComments from "@/utils/getAllComments";
 
-export default async function Home() {
+export default async function CommentsPage() {
   const { items } = await getAllComments();
 
   return (
