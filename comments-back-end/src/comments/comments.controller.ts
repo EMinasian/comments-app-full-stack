@@ -12,12 +12,14 @@ import {
   NotFoundException,
   ParseUUIDPipe,
   ValidationPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 import { CommentResponseDto } from './dto/response-comment.dto';
 import { CommentsService } from './comments.service';
 import type { UUID } from 'crypto';
+import { CommentsGuard } from './comments.guard';
 
 @Controller('comments')
 export class CommentsController {
@@ -69,6 +71,7 @@ export class CommentsController {
 
   // Delete /comments/:id
   @Delete(':id')
+  @UseGuards(CommentsGuard)
   @HttpCode(HttpStatus.NO_CONTENT)
   remove(@Param('id', ParseUUIDPipe) id: UUID): void {
     try {
