@@ -1,4 +1,7 @@
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import "./globals.css";
+import darkTheme from "./dark.theme";
+import { Container, CssBaseline, ThemeProvider } from "@mui/material";
 
 export default function RootLayout({
   children,
@@ -7,7 +10,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-pink-100 w-full flex flex-col items-center">{children}</body>
+      <body className="w-full flex flex-col items-center">
+        <AppRouterCacheProvider>
+          <ThemeProvider theme={darkTheme}>
+            <CssBaseline />
+            <Container maxWidth="lg" className="my-12">
+              {children}
+            </Container>
+          </ThemeProvider>
+        </AppRouterCacheProvider>
+      </body>
     </html>
   );
 }
