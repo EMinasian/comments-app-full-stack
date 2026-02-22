@@ -1,0 +1,13 @@
+import { Container } from "@mui/material";
+
+export default function AuthLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <Container maxWidth="lg" className="size-full flex flex-col items-center justify-center">
+        {children}
+    </Container>
+  );
+}
