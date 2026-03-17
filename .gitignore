@@ -46,6 +46,7 @@ next-env.d.ts
 /comments-back-end/dist
 /comments-back-end/node_modules
 /comments-back-end/build
+/comments-back-end/generated/prisma
 
 # Logs
 logs

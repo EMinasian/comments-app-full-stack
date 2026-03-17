@@ -7,7 +7,7 @@ import { UpdateCommentDto } from './dto/update-comment.dto';
 
 @Injectable()
 export class CommentsService {
-  private comments = getMockComments(); // TODO: replace with ORM logic
+  private comments: CommentResponseDto[] = getMockComments(); // TODO: replace with ORM logic
 
   findAll(cursor: string): { items: CommentResponseDto[]; endCursor: string } {
     return {
