@@ -2,12 +2,12 @@ import { Injectable, UnprocessableEntityException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { CreateUsersDto } from './dto/create-users.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { User } from '@prisma/client';
+
 @Injectable()
 export class UsersService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async create(createUsersDto: CreateUsersDto): Promise<User> {
+  async create(createUsersDto: CreateUsersDto) {
     const defaultUsername =
       `${createUsersDto.firstname.trim()}${createUsersDto.lastname.trim()}`.toLowerCase();
 
@@ -17,6 +17,14 @@ export class UsersService {
           ...createUsersDto,
           password: await bcrypt.hash(createUsersDto.password, 10),
           username: defaultUsername,
+        },
+        select: {
+          email: true,
+          firstname: true,
+          lastname: true,
+          profilePictureUrl: true,
+          username: true,
+          id: true,
         },
       });
     } catch (error) {
