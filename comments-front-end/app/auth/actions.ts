@@ -1,7 +1,7 @@
 'use server'
 
 import { redirect } from "next/navigation"
-import { getErrorMessages } from "@/utils/errors";
+import { post } from "@/utils/customFetch";
 
 const createUser = async (prevState: unknown, formData: FormData) => {
 
@@ -12,28 +12,10 @@ const createUser = async (prevState: unknown, formData: FormData) => {
     password: formData.get('password'),
   };
 
-  try {
-    const res = await fetch(
-      `${process.env.API_URL}/users`,
-      {
-        method: 'POST',
-        headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-      }
-    )
+  const res = await post('/users', payload)
 
-    const data = await res.json()
-
-    if (!res.ok) {
-      console.log(`create user, request failed. Data: ${JSON.stringify(data)}`)
-      return { errors: getErrorMessages(data) }
-    }
-
-  } catch (error) {
-    console.log(`create user, request failed. Error: ${error}`)
-    return { errors: getErrorMessages(error as Error) }
+  if (res?.errors) {
+    return { errors: res.errors }
   }
 
   redirect('/comments')
