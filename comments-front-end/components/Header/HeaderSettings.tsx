@@ -8,6 +8,7 @@ import Menu from '@mui/material/Menu';
 import Avatar from '@mui/material/Avatar';
 import MenuItem from '@mui/material/MenuItem';
 import type { UserType } from '@/contexts/authContext';
+import { logOutUser } from './actions';
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -47,11 +48,9 @@ const HeaderSettings = ({ user }: { user: UserType }) => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
+                <MenuItem key='logout-setting' onClick={handleCloseUserMenu}>
+                  <Typography onClick={logOutUser} sx={{ textAlign: 'center' }}>Logout</Typography>
                 </MenuItem>
-              ))}
             </Menu>
           </Box>   
   )

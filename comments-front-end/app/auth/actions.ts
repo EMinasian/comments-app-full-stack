@@ -5,13 +5,14 @@ import { cookies } from "next/headers";
 import { jwtDecode } from "jwt-decode";
 import { post } from "@/utils/customFetch";
 import { getErrorMessages } from "@/utils/errors";
+import { AUTHENTICATION_COOKIE } from "@/utils/constants";
 
 const setAuthCookie = async (response: Response) => {
   const setCookieHeader = response.headers.get('Set-Cookie');
   if (setCookieHeader) {
     const token = setCookieHeader.split(';')[0].split('=')[1];
     (await cookies()).set({
-      name: 'Authentication',
+      name: AUTHENTICATION_COOKIE,
       value: token,
       secure: true,
       httpOnly: true,
