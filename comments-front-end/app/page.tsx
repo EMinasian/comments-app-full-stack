@@ -1,4 +1,3 @@
-
 const HomePage = async () => {
   return (
     <div>
@@ -6,6 +5,6 @@ const HomePage = async () => {
       <p>This is the home page.</p>
     </div>
   );
-}
+};
 
-export default HomePage
+export default HomePage;

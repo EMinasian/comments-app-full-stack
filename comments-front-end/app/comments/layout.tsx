@@ -7,7 +7,7 @@ export default function CommentsLayout({
 }) {
   return (
     <Container maxWidth="lg" className="my-12 flex flex-col items-center">
-        {children}
+      {children}
     </Container>
   );
 }

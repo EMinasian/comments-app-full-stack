@@ -9,20 +9,18 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  
-  const currentUser = await getCurrentUser()
+  const currentUser = await getCurrentUser();
 
   return (
     <html lang="en">
       <body>
         <main className="flex flex-col items-center">
-        <Providers user={currentUser}>
-          <CssBaseline />
-          <Header />
+          <Providers user={currentUser}>
+            <CssBaseline />
+            <Header />
             {children}
-        </Providers>
+          </Providers>
         </main>
-
       </body>
     </html>
   );

@@ -3,5 +3,5 @@ export type CommentType = {
   content: string;
   commentId?: string;
   updatedAt: string;
-  subComments?: CommentType[]
-}
+  subComments?: CommentType[];
+};

@@ -7,13 +7,16 @@ export type UserType = {
   email: string;
   username: string;
   profilePictureUrl: string;
-}
+};
 
 export type AuthContextType = {
   isAuthenticated: boolean;
   user: UserType | null;
-}
+};
 
-const AuthContext = createContext<AuthContextType>({ isAuthenticated: false, user: null });
+const AuthContext = createContext<AuthContextType>({
+  isAuthenticated: false,
+  user: null,
+});
 
 export default AuthContext;

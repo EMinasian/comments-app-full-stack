@@ -1,6 +1,6 @@
-'use server'
+"use server";
 
-import { redirect } from "next/navigation"
+import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { jwtDecode } from "jwt-decode";
 import { post } from "@/utils/customFetch";
@@ -8,9 +8,9 @@ import { getErrorMessages } from "@/utils/errors";
 import { AUTHENTICATION_COOKIE } from "@/utils/constants";
 
 const setAuthCookie = async (response: Response) => {
-  const setCookieHeader = response.headers.get('Set-Cookie');
+  const setCookieHeader = response.headers.get("Set-Cookie");
   if (setCookieHeader) {
-    const token = setCookieHeader.split(';')[0].split('=')[1];
+    const token = setCookieHeader.split(";")[0].split("=")[1];
     (await cookies()).set({
       name: AUTHENTICATION_COOKIE,
       value: token,
@@ -19,60 +19,54 @@ const setAuthCookie = async (response: Response) => {
       expires: new Date(jwtDecode(token).exp! * 1000),
     });
   }
-}
+};
 
 const createUser = async (prevState: unknown, formData: FormData) => {
-
   const payload = {
-    firstname: formData.get('firstname'),
-    lastname: formData.get('lastname'),
-    email: formData.get('email'),
-    password: formData.get('password'),
+    firstname: formData.get("firstname"),
+    lastname: formData.get("lastname"),
+    email: formData.get("email"),
+    password: formData.get("password"),
   };
 
-  const res = await post('/users', payload)
+  const res = await post("/users", payload);
 
   if (res?.errors) {
-    return { errors: res.errors }
+    return { errors: res.errors };
   }
 
-  redirect('/comments')
-}
+  redirect("/comments");
+};
 
 const authenticateUser = async (prevState: unknown, formData: FormData) => {
-
   const payload = {
-    email: formData.get('email'),
-    password: formData.get('password'),
+    email: formData.get("email"),
+    password: formData.get("password"),
   };
 
   try {
-    const res = await fetch(
-      `${process.env.API_URL}/auth/login`,
-      {
-        method: 'POST',
-        headers: {
-        'Content-Type': 'application/json',
+    const res = await fetch(`${process.env.API_URL}/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(payload),
-      }
-    )
-  
-    const data = await res.json()
-  
+    });
+
+    const data = await res.json();
+
     if (!res.ok) {
-      console.log(JSON.stringify(data))
-      return { errors: getErrorMessages(data) }
+      console.log(JSON.stringify(data));
+      return { errors: getErrorMessages(data) };
     }
 
-    await setAuthCookie(res)
-  
+    await setAuthCookie(res);
   } catch (error) {
-    console.log(JSON.stringify(error))
-    return { errors: getErrorMessages(error as Error) }
+    console.log(JSON.stringify(error));
+    return { errors: getErrorMessages(error as Error) };
   }
 
-  redirect('/comments')
-}
+  redirect("/comments");
+};
 
-export { createUser, authenticateUser }
+export { createUser, authenticateUser };

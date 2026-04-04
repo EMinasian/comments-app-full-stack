@@ -1,17 +1,16 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import Avatar from '@mui/material/Avatar';
-import MenuItem from '@mui/material/MenuItem';
-import type { UserType } from '@/contexts/authContext';
-import { logOutUser } from './actions';
+import { useState } from "react";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import Avatar from "@mui/material/Avatar";
+import MenuItem from "@mui/material/MenuItem";
+import type { UserType } from "@/contexts/authContext";
+import { logOutUser } from "./actions";
 
 const HeaderSettings = ({ user }: { user: UserType }) => {
-
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -23,35 +22,38 @@ const HeaderSettings = ({ user }: { user: UserType }) => {
   };
 
   return (
-           <Box sx={{ flexGrow: 0 }}>
-           
-              <IconButton onClick={handleOpenUserMenu} sx={{ display: 'flex', alignItems: 'center', gap: '0.5rem', p: 0 }}>
-                <Typography sx={{ textAlign: 'center' }}>{`${user.firstname} ${user.lastname}`}</Typography>
-                <Avatar alt={user.username} src={user.profilePictureUrl} />
-                 
-              </IconButton>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-                <MenuItem key='logout-setting' onClick={logOutUser}>
-                  <Typography sx={{ textAlign: 'center' }}>Logout</Typography>
-                </MenuItem>
-            </Menu>
-          </Box>   
-  )
-}
+    <Box sx={{ flexGrow: 0 }}>
+      <IconButton
+        onClick={handleOpenUserMenu}
+        sx={{ display: "flex", alignItems: "center", gap: "0.5rem", p: 0 }}
+      >
+        <Typography
+          sx={{ textAlign: "center" }}
+        >{`${user.firstname} ${user.lastname}`}</Typography>
+        <Avatar alt={user.username} src={user.profilePictureUrl} />
+      </IconButton>
+      <Menu
+        sx={{ mt: "45px" }}
+        id="menu-appbar"
+        anchorEl={anchorElUser}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        keepMounted
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        open={Boolean(anchorElUser)}
+        onClose={handleCloseUserMenu}
+      >
+        <MenuItem key="logout-setting" onClick={logOutUser}>
+          <Typography sx={{ textAlign: "center" }}>Logout</Typography>
+        </MenuItem>
+      </Menu>
+    </Box>
+  );
+};
 
 export default HeaderSettings;
