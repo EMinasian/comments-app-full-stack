@@ -35,7 +35,7 @@ const createUser = async (prevState: unknown, formData: FormData) => {
     return { errors: res.errors };
   }
 
-  redirect("/comments");
+  redirect("/");
 };
 
 const authenticateUser = async (prevState: unknown, formData: FormData) => {
@@ -66,7 +66,7 @@ const authenticateUser = async (prevState: unknown, formData: FormData) => {
     return { errors: getErrorMessages(error as Error) };
   }
 
-  redirect("/comments");
+  redirect("/");
 };
 
 export { createUser, authenticateUser };
