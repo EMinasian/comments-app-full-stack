@@ -1,18 +1,5 @@
 import { createContext } from "react";
-
-export type UserType = {
-  userId: number;
-  firstname: string;
-  lastname: string;
-  email: string;
-  username: string;
-  profilePictureUrl: string;
-};
-
-export type AuthContextType = {
-  isAuthenticated: boolean;
-  user: UserType | null;
-};
+import type { AuthContextType } from "@/types/auth";
 
 const AuthContext = createContext<AuthContextType>({
   isAuthenticated: false,

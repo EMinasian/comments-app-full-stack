@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import Avatar from "@mui/material/Avatar";
 import MenuItem from "@mui/material/MenuItem";
-import type { UserType } from "@/contexts/authContext";
+import type { UserType } from "@/types/auth";
 import { logOutUser } from "./actions";
 
 const HeaderSettings = ({ user }: { user: UserType }) => {

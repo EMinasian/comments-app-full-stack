@@ -1,9 +1,10 @@
+import Products from "@/components/Products";
 import CreatePostsButton from "@/components/CreatePosts";
 
 const HomePage = async () => {
   return (
     <div>
-      <h1>Welcome to Products App</h1>
+      <Products />
       <CreatePostsButton />
     </div>
   );

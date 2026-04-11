@@ -1,11 +1,11 @@
 "use server";
 
 import { get } from "@/utils/customFetch";
-import type { UserType } from "@/contexts/authContext";
+import type { UserType } from "@/types/auth";
 
 const getCurrentUser = async () => {
-  const user = await get("/users/current");
-  return user as UserType | null;
+  const user = await get<UserType | null>("/users/current");
+  return user;
 };
 
 export { getCurrentUser };

@@ -33,7 +33,7 @@ export const post = async (
   }
 };
 
-export const get = async (
+export const get = async <T>(
   path: string,
 ): Promise<{ errors: string[] } | unknown> => {
   try {
@@ -49,7 +49,7 @@ export const get = async (
       throw new Error(data.message || "An error occurred while fetching data");
     }
 
-    return data;
+    return data as T;
   } catch (error) {
     console.log(JSON.stringify(error));
     return null;
