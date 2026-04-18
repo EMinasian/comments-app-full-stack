@@ -7,6 +7,8 @@ import { UsersModule } from './users/users.module';
 import { LoggerModule } from 'nestjs-pino';
 import { AuthModule } from './auth/auth.module';
 import { ProductsModule } from './products/products.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import * as path from 'path';
 
 @Module({
   imports: [
@@ -31,6 +33,13 @@ import { ProductsModule } from './products/products.module';
       inject: [ConfigService],
     }),
     CommentsModule,
+    ServeStaticModule.forRoot({
+      rootPath: path.join(process.cwd(), 'public'),
+      serveRoot: '/',
+      serveStaticOptions: {
+        index: false,
+      },
+    }),
     UsersModule,
     AuthModule,
     ProductsModule,
