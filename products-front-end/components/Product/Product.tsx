@@ -10,7 +10,7 @@ const Product = ({ product }: { product: ProductType }) => {
         <Typography variant="h4">{name}</Typography>
         {imageExists && (
           <Image
-            src={`${process.env.API_URL}/products/${id}.png`}
+            src={`${process.env.API_URL}/images/products/${id}.png`}
             width={0}
             height={0}
             className="w-full h-auto"
