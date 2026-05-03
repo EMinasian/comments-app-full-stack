@@ -3,6 +3,7 @@ import { Stack, Typography } from "@mui/material";
 import { getProduct } from "./actions";
 import type { ProductType } from "@/types/prodcuts";
 import getProductImageUrl from "@/utils/getProductImageUrl";
+import Checkout from "@/components/Checkout";
 
 const SingleProductPage = async ({
   params,
@@ -27,6 +28,7 @@ const SingleProductPage = async ({
       )}
       <Typography>{product.description}</Typography>
       <Typography variant="h4">$ {product.price}</Typography>
+      <Checkout productId={Number(productId)} />
     </Stack>
   );
 };
